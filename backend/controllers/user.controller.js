@@ -1,4 +1,6 @@
-import {User} from "../models/user.model";
+
+
+import {User} from "../models/user.model.js";
 import bcrypt from "bcryptjs"
 
 export const register = async(req, res)=>{
@@ -25,25 +27,25 @@ export const register = async(req, res)=>{
             })
         }
 
-        const existingUserByEmail = await User.findone({email:email})
+        const existingUserByEmail = await User.findOne({email:email})
         if(existingUserByEmail){
             return res.status(400).json({
                 success:false,
                 message: "Email alreay exists",
             })
-
-
-            // Here we to install bcrypt.js
-            //We will do it later
-            // const hashPassword = await
-        
         }
+
+
+        // Here we to install bcrypt.js
+            //We will do it later
+        const hashPassword = await bcrypt.hash(password, 10)
+        
 
         await User.create({
             firstName,
             lastName,
             email,
-            password
+            password:hashPassword
      } )
 
      return res.status(201).json({
@@ -59,3 +61,5 @@ export const register = async(req, res)=>{
         })
     }
 }
+
+
