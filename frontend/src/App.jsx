@@ -1,11 +1,46 @@
-import { Button } from "@/components/ui/button"
+import React from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'; 
+import Home from './pages/Home';
+import About from './pages/About';
+import Blogs from './pages/Blogs';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Navbar from './components/Navbar';
 
-function App() {
+
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element:<><Navbar/><Home/></>
+  },
+   {
+    path: "blogs",
+    element:<><Navbar/><Blogs/></>
+  },
+   {
+    path: "about",
+    element:<><Navbar/><About/></>
+  },
+   {
+    path: "login",
+    element:<><Navbar/><Login/></>
+  },
+   {
+    path: "signup",
+    element:<><Navbar/><Signup/></>
+  },
+])
+
+const App = () => {
   return (
-    <div className="flex min-h-svh flex-col items-center  justify-center">
-      <Button>Click me</Button>
-    </div>
-  )
-}
+   <>
+   
+   <RouterProvider router={router}/>
+   
+   
+   </>
+  );
+};
 
-export default App
+export default App;
