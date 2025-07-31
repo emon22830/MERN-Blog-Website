@@ -2,6 +2,7 @@ import express from "express"
 import dotenv from "dotenv"
 import connectDB from "./database/db.js"
 import useRoute from "./routes/user.route.js"
+import cors from "cors"
 dotenv.config()
 const PORT = process.env.PORT || 300
 const app = express()
@@ -9,6 +10,10 @@ const app = express()
 //default middleware
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
+app.use(cors({
+    origin:"http://localhost:5174",
+    credentials:true
+}))
 
 
 app.use("/api/v1/user", useRoute)
